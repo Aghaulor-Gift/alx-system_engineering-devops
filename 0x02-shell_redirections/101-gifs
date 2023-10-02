@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -type f -iname '*.gif' -printf '%f\n' | LC_COLLATE=C sort -f
+ind . -type  *.gif'  '%f\n' | LC_COLLATE=C sort 
