@@ -1,2 +1,0 @@
-#!/bin/bash
-ind . -type  *.gif'  '%f\n' | LC_COLLATE=C sort 
