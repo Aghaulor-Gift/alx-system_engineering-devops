@@ -1,2 +1,2 @@
 #!/bin/bash
-printf "%$((5#$(echo $WATER | tr water 01234)))s" | tr 01234567 bestcholl
+printf "%s\n" "obase=bestchol; $(echo "$WATER" | tr water 0123456789) + $(echo "$STIR" | tr stir. 0123456789)" | bc
