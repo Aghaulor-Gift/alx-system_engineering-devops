@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+end_handler() {
+    echo "Deleting PID file and terminating script..."
+    rm -f /var/run/myscript.pid
+    exit 0
+}
+
+
+interrupt_handler() {
+    echo "Y U no love me?!"
+}
+
+term_handler() {
+    echo "I hate the kill command"
+}
+
+trap 'end_handler' SIGQUIT SIGTERM
+trap 'interrupt_handler' SIGINT
+trap 'term_handler' SIGTERM
+
+echo $$ > /var/run/myscript.pid
+
+while true; do
+    echo "To infinity and beyond"
+    sleep 1
+done
