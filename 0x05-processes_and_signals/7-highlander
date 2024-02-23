@@ -7,11 +7,8 @@ sigterm_display() {
     echo "I am invincible!!!"
 
 }
-
+trap 'sigterm_display' SIGTERM
 while true; do
     echo "To infinity and beyond"
     sleep 2
 done
-
-trap 'sigterm_display' SIGTERM
-sigterm_display()
