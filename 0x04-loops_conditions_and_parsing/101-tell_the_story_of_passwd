@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Read the file /etc/passwd line by line
+while IFS=':' read -r username _ uid gid info home_dir shell; do
+
+    group_name=$(grep -E "^.*?:$gid:" /etc/group | cut -d ':' -f 1)
+
+    password=$(grep -E "^$username:" /etc/shadow | cut -d ':' -f 2)
+    echo "The user $username is part of the $gid gang, lives in $home_dir and rides $shell. $uid's place is protected by the passcode $password, more info about the user here: $info"
+done < /etc/passwd
