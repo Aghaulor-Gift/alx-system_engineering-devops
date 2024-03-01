@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Bash script that configures an Ubuntu server with the localhost resolves to 127.0.0.2 and facebook.com resolves to 8.8.8.8.
+
+cp /etc/hosts ~/host.bak
+sed -i 's/127.0.0.1/127.0.0.2/' ~/host.bak
+sed -i 's/157.240.11.35/8.8.8.8/' ~/host.bak
+
+cp -f ~/host.bak /etc/hosts
