@@ -43,4 +43,4 @@ Emphasizes fault tolerance, scalability, and load balancing
 - What is a firewall
 
 ## Contributors:
-- (Aghaulor Gift)[aghaulor.gift@gmail.com]
+- [Aghaulor Gift](aghaulor.gift@gmail.com)
