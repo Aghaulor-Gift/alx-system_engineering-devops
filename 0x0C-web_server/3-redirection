@@ -6,7 +6,8 @@ apt-get -y update
 apt-get -y install nginx
 
 service nginx start
-new_string="rewrite ^\/redirect_me https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4 permanent;"
+string="rewrite ^\/redirect_me https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4
+       permanent;"
 file="/etc/nginx/sites-available/default"
-sed -i "26i $new_string" $file
+sed -i "26i $string" $file
 service nginx restart && service nginx reload
