@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Start Apache server and configure it to return "Hello Holberton"
+#when querying the root
+
+apt-get update
+apt-get install -y apache2
+service apache2 start
+echo "Hello Holberton" > /var/www/html/index.html
