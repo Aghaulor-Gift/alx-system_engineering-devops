@@ -5,19 +5,8 @@
 apt-get -y update
 apt-get -y install nginx
 
-bash -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
-REDIRECT="https://github.com/Aghaulor-Gift/"
-
-CONFIG="server {
-        listen 80;
-        server_name _;
-	root /var/www/html;
-	index index.nginx-debian.html;
-
-        }
-        location = /redirect_me {
-        return 301 $REDIRECT;
-        }
-}"
-echo "$CONFIG" > /etc/nginx/sites-available/default
-service nginx restart
+service nginx start
+new_string="rewrite ^\/redirect_me https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4 permanent;"
+file="/etc/nginx/sites-available/default"
+sed -i "26i $new_string" $file
+service nginx restart && service nginx reload
