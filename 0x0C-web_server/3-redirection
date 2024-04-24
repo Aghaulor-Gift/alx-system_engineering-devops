@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Script configures Nginx server so that /redirect_me is
+# redirecting to another page
+
+apt-get -y update
+apt-get -y install nginx
+
+bash -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
+REDIRECT="https://github.com/Aghaulor-Gift/"
+
+CONFIG="server {
+        listen 80;
+        server_name _;
+	root /var/www/html;
+	index index.nginx-debian.html;
+
+        }
+        location = /redirect_me {
+        return 301 $REDIRECT;
+        }
+}"
+echo "$CONFIG" > /etc/nginx/sites-available/default
+service nginx restart
