@@ -22,4 +22,5 @@ server {
         index index.html index.htm;
     }
 }
+EOF
 sudo nginx -t && sudo service nginx restart
