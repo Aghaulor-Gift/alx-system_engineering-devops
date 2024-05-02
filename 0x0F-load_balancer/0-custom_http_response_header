@@ -2,25 +2,8 @@
 # This script configures Nginx to include a custom HTTP response header
 
 sudo apt update
-sudo apt install nginx -y
-sudo service nginx start
+sudo apt install -y nginx
 custom_header_name="X-Served-By"
 custom_header_value=$(hostname)
-
-cat <<EOF | sudo tee /etc/nginx/conf.d/custom_headers.conf
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-
-    server_name _;
-    root /var/www/html;
-    index index.nginx-debian.html;
-    add_header $custom_header_name $custom_header_value;
-
-    location / {
-        root /var/www/html;
-        index index.html index.htm;
-    }
-}
-EOF
-sudo nginx -t && sudo service nginx restart
+sudo sed -i "20i\        add_header $custom_header_name $custom_header_value;" /etc/nginx/nginx.conf
+sudo systemctl restart nginx
