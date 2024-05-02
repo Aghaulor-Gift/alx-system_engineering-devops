@@ -3,6 +3,7 @@
 
 sudo apt update
 sudo apt install -y nginx
+sudo bash -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
 custom_header_name="X-Served-By"
 custom_header_value=$(hostname)
 sudo sed -i "20i\        add_header $custom_header_name $custom_header_value;" /etc/nginx/nginx.conf
