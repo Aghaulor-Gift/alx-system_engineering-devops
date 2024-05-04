@@ -1,32 +1,25 @@
-#  creating a custom HTTP header response with Puppet
+# Installs a Nginx server with custome HTTP header
 
-package { 'nginx':
-  ensure => installed,
+exec {'update':
+  provider => shell,
+  command  => 'sudo apt-get -y update',
+  before   => Exec['install Nginx'],
 }
 
-file { '/etc/nginx/conf.d/custom_headers.conf':
-  ensure  => present,
-  content => "
-    server {
-      listen 80 default_server;
-      listen [::]:80 default_server;
-
-      server_name _;
-      root /var/www/html;
-      index index.nginx-debian.html;
-
-      add_header X-Served-By $::hostname;
-
-      location / {
-        root /var/www/html;
-        index index.html index.htm;
-      }
-    }
-  ",
-  notify  => Service['nginx'],
+exec {'install Nginx':
+  provider => shell,
+  command  => 'sudo apt-get -y install nginx',
+  before   => Exec['add_header'],
 }
 
-service { 'nginx':
-  ensure => running,
-  enable => true,
+exec { 'add_header':
+  provider    => shell,
+  environment => ["HOST=${hostname}"],
+  command     => 'sudo sed -i "s/include \/etc\/nginx\/sites-enabled\/\*;/include \/etc\/nginx\/sites-enabled\/\*;\n\tadd_header X-Served-By \"$HOST\";/" /etc/nginx/nginx.conf',
+  before      => Exec['restart Nginx'],
+}
+
+exec { 'restart Nginx':
+  provider => shell,
+  command  => 'sudo service nginx restart',
 }
