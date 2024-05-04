@@ -4,26 +4,24 @@
 subdomain_info() {
     local domain="$1"
     local subdomain="$2"
-    local record_type
-    record_type=$(dig +short -t A "${subdomain}.${domain}" | awk '{print length($0) ? "A" : "CNAME"}')
-    local destination
-    destination=$(dig +short "${subdomain}.${domain}")
 
-    echo "The subdomain ${subdomain} is a ${record_type} record and points to ${destination}"
+    if [ -z "$subdomain" ];
+	then
+		subdomains=("www" "lb-01" "web-01" "web-02")
+	else
+		subdomains=("$subdomain")
+	fi
+
+	for sub in "${subdomains[@]}";
+	do
+		record_type="A"
+		destination=$(dig +short -t A "$sub.$domain" | tail -n1)
+
+		echo "The subdomain $sub is a $record_type record and points to $destination"
+	done
 }
 
-main() {
-    local domain="$1"
-    local subdomain="${2:-www}"
-    local subdomains=("www" "lb-01" "web-01" "web-02")
+domain="$1"
+subdomain="$2"
 
-    for subdomain in "${subdomains[@]}"; do
-	subdomain_info "$domain" "$subdomain"
-    done
-}
-
-if [[ $# -lt 1 ]]; then
-    echo "Usage: $0 <domain>"
-    exit 1
-fi
-main "$@"
+subdomain_info "$domain" "$subdomain"
