@@ -1,4 +1,5 @@
-#!/usr/bin/ env bash
+#!/usr/bin/env bash
+# Configure web-01 so that its firewall redirects port 8080/TCP to port 80/TCP
 sudo sed -i ""
 net="#net.ipv4.ip_forward=1"
 
