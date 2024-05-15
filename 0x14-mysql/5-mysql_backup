@@ -7,21 +7,21 @@ if [ $# -ne 1 ]; then
 fi
 
 ROOT_PASSWORD=$1
-DATE=$(date +"%d-%m-%Y")
+DATE="$(date +"%d-%m-%Y")"
 ARCHIVE_FILE="$DATE.tar.gz"
 
-mysqldump -u root -p"$ROOT_PASSWORD" --all-databases > "backup.sql"
+mysqldump -u root -p"$ROOT_PASSWORD" --all-databases > backup.sql
 
 if ! command; then
     echo "Error: MySQL dump failed."
     exit 1
 fi
 
-tar -czf "$ARCHIVE_FILE" backup.sql
+tar -cvzf "$ARCHIVE_FILE" backup.sql
 
 if ! command; then
     echo "Error: Compression failed."
     exit 1
 fi
-rm "backup.sql"
-echo "Backup completed: $ARCHIVE_FILE"
+#rm "backup.sql"
+#echo "Backup completed: $ARCHIVE_FILE"
