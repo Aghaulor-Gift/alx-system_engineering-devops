@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# backup and compress my databases
+# Check if the password argument is provided
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <mysql_root_password>"
+    exit 1
+fi
+
+ROOT_PASSWORD=$1
+BACKUP_DIR="/path/to/backup/directory"
+
+mkdir -p "$BACKUP_DIR"
+DATE=$(date +"%d-%m-%Y")
+
+DUMP_FILE="$BACKUP_DIR/backup.sql"
+
+ARCHIVE_FILE="$BACKUP_DIR/$DATE.tar.gz"
+mysqldump -u root -p"$ROOT_PASSWORD" --all-databases > "$DUMP_FILE"
+
+if [ $? -ne 0 ]; then
+    echo "Error: MySQL dump failed."
+    exit 1
+fi
+
+tar -czf "$ARCHIVE_FILE" -C "$BACKUP_DIR" backup.sql
+
+if [ $? -ne 0 ]; then
+    echo "Error: Compression failed."
+    exit 1
+fi
+rm "$DUMP_FILE"
+echo "Backup completed: $ARCHIVE_FILE"
