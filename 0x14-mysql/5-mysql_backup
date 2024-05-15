@@ -17,14 +17,14 @@ DUMP_FILE="$BACKUP_DIR/backup.sql"
 ARCHIVE_FILE="$BACKUP_DIR/$DATE.tar.gz"
 mysqldump -u root -p"$ROOT_PASSWORD" --all-databases > "$DUMP_FILE"
 
-if [ $? -ne 0 ]; then
+if ! command; then
     echo "Error: MySQL dump failed."
     exit 1
 fi
 
 tar -czf "$ARCHIVE_FILE" -C "$BACKUP_DIR" backup.sql
 
-if [ $? -ne 0 ]; then
+if ! command; then
     echo "Error: Compression failed."
     exit 1
 fi
