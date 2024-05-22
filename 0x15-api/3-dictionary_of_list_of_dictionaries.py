@@ -7,8 +7,10 @@ import json
 import requests
 
 if __name__ == "__main__":
-    ALL_USERS = requests.get("https://jsonplaceholder.typicode.com/users").json()
-    ALL_TASKS = requests.get("https://jsonplaceholder.typicode.com/todos").json()
+    url-users = "https://jsonplaceholder.typicode.com/users"
+    url-todos = "https://jsonplaceholder.typicode.com/todos"
+    ALL_USERS = requests.get(url-users).json()
+    ALL_TASKS = requests.get(url-todos).json()
     ALL_RECORDS = {}
 
     for user in ALL_USERS:
