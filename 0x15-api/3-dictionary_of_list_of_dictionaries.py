@@ -7,25 +7,25 @@ import json
 import requests
 
 if __name__ == "__main__":
-    ALL_USERS = requests.get(
-        "https://jsonplaceholder.typicode.com/users").json()
-    ALL_TASKS = requests.get(
-        "https://jsonplaceholder.typicode.com/todos").json()
+    ALL_USERS = requests.get("https://jsonplaceholder.typicode.com/users").json()
+    ALL_TASKS = requests.get("https://jsonplaceholder.typicode.com/todos").json()
     ALL_RECORDS = {}
 
     for user in ALL_USERS:
         EMPLOYEE_ID = user.get("id")
         USERNAME = user.get("username")
+        USER_TASKS = []
 
         for task in ALL_TASKS:
-            if (task.get("userId") == int(EMPLOYEE_ID)):
-                dict = {}
-                dict["task"] = task.get("title")
-                dict["completed"] = task.get("completed")
-                dict["username"] = USERNAME
-                ALL_TASKS.append(dict)
+            if task.get("userId") == EMPLOYEE_ID:
+                task_dict = {
+                    "task": task.get("title"),
+                    "completed": task.get("completed"),
+                    "username": USERNAME
+                }
+                USER_TASKS.append(task_dict)
 
-        ALL_RECORDS[EMPLOYEE_ID] = ALL_TASKS
+        ALL_RECORDS[EMPLOYEE_ID] = USER_TASKS
 
     with open("todo_all_employees.json", 'w') as jsonfile:
         json.dump(ALL_RECORDS, jsonfile)
