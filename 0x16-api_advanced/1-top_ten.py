@@ -19,8 +19,8 @@ def top_ten(subreddit):
                 for post in posts[:10]:
                     print(post['data']['title'])
             else:
-                print(f"No posts found in /r/{subreddit}")
+                return 0
         else:
-            print(f"Error: {response.status_code}")
+            return 0
     except requests.RequestException as e:
         print(f"RequestException: {e}")
