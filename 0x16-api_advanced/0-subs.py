@@ -10,7 +10,7 @@ import requests
 def number_of_subscribers(subreddit):
     """ Represent the number of subcribers"""
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {'User-Agent': '0-subs/0.1'}
+    headers = {'User-Agent': '0x16-api_advanced/0.1'}
 
     try:
         response = requests.get(url, headers=headers, allow_redirects=False)
