@@ -1,6 +1,6 @@
 # Postmortem: Nginx Outage on Web Application
 
-![Postmortem]()
+![Postmortem](Images/Postmortem2.png)
 ## Overview
 
 This document details the postmortem analysis of the Nginx outage that affected our web application on June 1, 2024. It covers the issue summary, timeline of events, root cause analysis, resolution, and corrective actions to prevent future occurrences.
@@ -8,8 +8,8 @@ This document details the postmortem analysis of the Nginx outage that affected 
 ## Issue Summary
 
 - **Duration of the Outage:**
-  - **Start Time:** June 1, 2024, 10:00 AM UTC
-  - **End Time:** June 1, 2024, 11:30 AM UTC
+  - **Start Time:** June 1, 2024, 10:00 AM West African Time
+  - **End Time:** June 1, 2024, 11:30 AM West African Time
 - **Impact:**
   - The web application was completely inaccessible to users. Approximately 80% of users experienced downtime, with the remaining 20% facing significant slowdowns.
 - **Root Cause:**
