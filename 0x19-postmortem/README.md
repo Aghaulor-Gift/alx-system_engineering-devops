@@ -17,17 +17,17 @@ This document details the postmortem analysis of the Nginx outage that affected 
 
 ## Timeline
 
-- **10:00 AM UTC:** Issue detected by monitoring alert indicating that the web application was unreachable.
-- **10:05 AM UTC:** On-call engineer receives alert and begins investigation.
-- **10:10 AM UTC:** Initial assumption: Network issue or server crash. Network diagnostics and server logs reviewed.
-- **10:20 AM UTC:** Misleading path: Network infrastructure checked, found no issues. Server health metrics reviewed, all appeared normal.
-- **10:30 AM UTC:** Escalation to the Nginx and Web Application teams for further investigation.
-- **10:40 AM UTC:** Nginx team discovers the service is not running. Attempt to restart Nginx fails.
-- **10:50 AM UTC:** Further inspection of Nginx configuration files reveals a spelling mistake in `nginx.conf`.
-- **11:00 AM UTC:** Spelling mistake corrected in `nginx.conf`.
-- **11:10 AM UTC:** Nginx service restarted successfully.
-- **11:20 AM UTC:** Web application verified to be back online.
-- **11:30 AM UTC:** Monitoring confirms full restoration of service.
+- **10:00 AM WAT:** Issue detected by monitoring alert indicating that the web application was unreachable.
+- **10:05 AM WAT:** On-call engineer receives alert and begins investigation.
+- **10:10 AM WAT:** Initial assumption: Network issue or server crash. Network diagnostics and server logs reviewed.
+- **10:20 AM WAT:** Misleading path: Network infrastructure checked, found no issues. Server health metrics reviewed, all appeared normal.
+- **10:30 AM WAT:** Escalation to the Nginx and Web Application teams for further investigation.
+- **10:40 AM WAT:** Nginx team discovers the service is not running. Attempt to restart Nginx fails.
+- **10:50 AM WAT:** Further inspection of Nginx configuration files reveals a spelling mistake in `nginx.conf`.
+- **11:00 AM WAT:** Spelling mistake corrected in `nginx.conf`.
+- **11:10 AM WAT:** Nginx service restarted successfully.
+- **11:20 AM WAT:** Web application verified to be back online.
+- **11:30 AM WAT:** Monitoring confirms full restoration of service.
 
 ## Root Cause and Resolution
 
@@ -63,3 +63,4 @@ The error in the configuration file was identified and corrected. Specifically, 
    - Conduct regular audits of configuration files to ensure compliance with best practices and prevent similar issues.
 
 By implementing these measures, we aim to prevent recurrence of such outages and improve the overall reliability and resilience of our web application infrastructure.
+
