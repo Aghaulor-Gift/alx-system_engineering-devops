@@ -8,37 +8,36 @@ package { 'nginx':
 
 # Define Nginx service
 service { 'nginx':
-  ensure  => running,
-  enable  => true,
-  require => Package['nginx'],
+  ensure    => running,
+  enable    => true,
+  subscribe => File['/etc/nginx/nginx.conf', '/etc/nginx/sites-available/default'],
 }
 
-# Define Nginx configuration file
-file { '/etc/nginx/sites-available/default':
-  ensure  => present,
-  content => template('nginx/default.conf.erb'),
-  notify  => Service['nginx'],
-}
-
-# Notify service restart if configuration changes
+# Define Nginx configuration file (nginx.conf)
 file { '/etc/nginx/nginx.conf':
-  notify => Service['nginx'],
+  ensure  => file,
+  content => template('/etc/nginx/nginx.conf.erb'),
+  require => Package['nginx'],
+  notify  => Service['nginx'],
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0644',  # Ensure permissions are set correctly
 }
 
-# Template for Nginx default configuration
-# Example template content (modify as per your needs)
-# You need to create the template file 'default.conf.erb' in 'nginx' directory
+# Define Nginx default site configuration (default.conf)
+file { '/etc/nginx/sites-available/default':
+  ensure  => file,
+  content => template('/etc/nginx/default.conf.erb'),
+  require => Package['nginx'],
+  notify  => Service['nginx'],
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0644',  # Ensure permissions are set correctly
+}
 
-# server {
-#     listen 80 default_server;
-#     listen [::]:80 default_server;
-# 
-#     root /var/www/html;
-#     index index.html index.htm index.nginx-debian.html;
-# 
-#     server_name _;
-# 
-#     location / {
-#         try_files $uri $uri/ =404;
-#     }
-# }
+# Reload Nginx service for configuration changes
+exec { 'reload_nginx':
+  command     => '/usr/sbin/service nginx reload',
+  refreshonly => true,
+  subscribe   => Service['nginx'],
+}
